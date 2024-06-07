@@ -7,13 +7,15 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
+type GetCapture struct {
+	ParameterCapture
+}
+
 type Get struct {
 	Object client.Object
 	Error  error
 
-	Capture struct {
-		ParameterCapture
-	}
+	Capture GetCapture
 }
 
 func (c *Client) Get(ctx context.Context, key client.ObjectKey, obj client.Object) error {
@@ -33,7 +35,7 @@ func (c *Client) Get(ctx context.Context, key client.ObjectKey, obj client.Objec
 	return c.get.Error
 }
 
-type ReaderCapture struct {
+type ListCapture struct {
 	ParameterCapture
 }
 
@@ -41,7 +43,7 @@ type List struct {
 	ObjectList client.ObjectList
 	Error      error
 
-	Capture ReaderCapture
+	Capture ListCapture
 }
 
 func (c *Client) List(ctx context.Context, list client.ObjectList, opts ...client.ListOption) error {

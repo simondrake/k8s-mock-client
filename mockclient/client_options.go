@@ -14,6 +14,12 @@ func WithList(l List) ClientOption {
 	}
 }
 
+func WithCreate(b Create) ClientOption {
+	return func(c *Client) {
+		c.create = b
+	}
+}
+
 func WithUpdate(u Update) ClientOption {
 	return func(c *Client) {
 		c.update = u

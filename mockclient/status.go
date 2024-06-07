@@ -16,7 +16,7 @@ func NewStatus() *Status {
 
 type StatusUpdateCapture struct {
 	ParameterCapture
-	Object client.Object
+	Objects []client.Object
 }
 
 type StatusUpdate struct {
@@ -27,12 +27,17 @@ type StatusUpdate struct {
 
 func (s *Status) Update(ctx context.Context, obj client.Object, opts ...client.UpdateOption) error {
 	s.update.Capture.Called++
-	s.update.Capture.Object = obj
+
+	if s.update.Capture.Objects == nil {
+		s.update.Capture.Objects = make([]client.Object, 0)
+	}
+
+	s.update.Capture.Objects = append(s.update.Capture.Objects, obj)
 
 	return s.update.Error
 }
 
-func (s *Status) GetUpdateCapture() StatusUpdateCapture {
+func (s *Status) UpdateCapture() StatusUpdateCapture {
 	return s.update.Capture
 }
 

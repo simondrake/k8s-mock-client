@@ -14,6 +14,7 @@ type ParameterCapture struct {
 type Client struct {
 	get    Get
 	list   List
+	create Create
 	update Update
 	status *Status
 }
